@@ -1,12 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import { Title } from './styles';
+import { FaGithubAlt, FaPlus } from 'react-icons/fa';
 
-export default function Main() {
-  return (
-    <Title error={false}>
-      Main
-      <small>small</small>
-    </Title>
-  );
+import { Container, Form, SubmitButton } from './styles';
+
+export default class Main extends Component {
+  state = {
+    newRepo: '',
+  };
+
+  handleInputChange = e => {
+    this.setState({ newRepo: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    console.log(this.state.newRepo);
+  };
+
+  render() {
+    const { newRepo } = this.state;
+
+    return (
+      <Container>
+        <h1>
+          <FaGithubAlt />
+          Repositórios
+        </h1>
+
+        <Form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            placeholder="Digite o repositório"
+            value={newRepo}
+            onChange={this.handleInputChange}
+          />
+
+          <SubmitButton disable={false}>
+            <FaPlus color="#FFF" size={14} />
+          </SubmitButton>
+        </Form>
+      </Container>
+    );
+  }
 }
